@@ -1,0 +1,103 @@
+<ion-header color="primary">
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Home</ion-title>
+     <ion-buttons end>
+     	 <button class="cart-btn" ion-button icon-only color="royal" (click)="myaccount()">
+	       <ion-icon ios="ios-person" md="md-person"></ion-icon>
+	     </button>
+
+     	 <button class="cart-btn" ion-button icon-only color="royal" (click)="notification()">
+     		<ion-icon ios="ios-notifications" md="md-notifications"></ion-icon>
+     		<ion-badge [hidden]="true" id="notification-badge">10</ion-badge>
+     	</button>
+	     <button class="cart-btn" ion-button icon-only color="royal" (click)="cart()">
+	        <ion-icon ios="ios-cart" md="md-cart"></ion-icon>
+	        <ion-badge [hidden]="true" id="cart-badge">0</ion-badge>
+	     </button>
+
+	      
+    </ion-buttons>
+
+  </ion-navbar>
+
+  <ion-searchbar
+  	placeholder="Search"
+  	showCancelButton="true"
+  	debounce="400"
+	  [(ngModel)]="search_string"
+	  [showCancelButton]="shouldShowCancel"
+	  (ionInput)="getResults($event)"
+	  (ionCancel)="onCancel($event)">
+</ion-searchbar>
+<ion-list class="search_result_row" *ngIf="matches.length > 0">
+    <ng-container *ngFor="let item of matches" style="overflow-y: scroll;">
+
+      <ion-item [style.height]="40"  (click)="selectItem(item.id,item.name)" role="button">
+        <div class="search_result">{{item.name}}</div>
+      </ion-item>
+
+    </ng-container>
+
+  </ion-list>
+</ion-header>
+
+<ion-content >
+	<ion-refresher (ionRefresh)="doRefresh($event);">
+    <ion-refresher-content 
+      pullingText="Pull to refresh"
+      pullingIcon="arrow-dropdown"
+      refreshingSpinner="circles"
+      refreshingText="..fetching">
+    </ion-refresher-content>
+ </ion-refresher>
+<ion-card>
+<ion-slides pager class="header-banner"  autoplay="3000" loop="true" speed="1000">
+    <ion-slide >
+	   	<img  src="assets/imgs/banner1.jpg"/>
+	</ion-slide>
+	<ion-slide >
+	    <img  src="assets/imgs/banner2.jpg"/>
+	</ion-slide>
+	<ion-slide >
+	    <img  src="assets/imgs/banner1.jpg"/>
+	</ion-slide>
+</ion-slides>
+</ion-card>
+<ion-card>
+  <button ion-item class="uplode_btn_card" (click)="openOrderwithPres()" >
+      <span ><i class="fa fa-arrow-circle-o-up" aria-hidden="true"></i>&nbsp; Upload prescription </span> 
+    </button>
+</ion-card>
+<h1 class="card_title">Top categories</h1>
+<ion-slides  class="category-slider" [slidesPerView]="3">
+    	   <ion-slide *ngFor="let category of categories">	   	
+	   	<ion-card (click)="openProductbycategory(category.category_id,category.name)">
+			  <img src="assets/imgs/placeholder.png">
+			  <ion-card-content class="category-card-content-md">
+			    <ion-card-title class="category_name">{{category.name}}</ion-card-title>
+			  </ion-card-content>
+		</ion-card>
+	  </ion-slide>
+</ion-slides>
+<div  *ngFor="let categoryproduct of categoryproducts">
+<h1 class="card_title">{{categoryproduct.category.name}}</h1>
+<ion-slides  class="category-slider" [slidesPerView]="2">
+    	   <ion-slide *ngFor="let product of categoryproduct.product">	   	
+	   	<ion-card (click)="openProductDetail(product.product_id,product.name)">
+			  <img class="product_image" src="{{product.image}}">
+			  <ion-card-content class="category-card-content-md">
+			  	<hr>
+			    <ion-card-title class="category_name">{{product.name}}</ion-card-title>
+			    <span class="rating_star">4<ion-icon ios="ios-star" md="md-star"></ion-icon></span>
+			    <span class="special_price"><i class="fa fa-rupee"></i> {{product.special_price}}</span>
+			    <span class="main-price"><i class="fa fa-rupee"></i> {{product.price}}</span>
+			    
+			  </ion-card-content>
+		</ion-card>
+	  </ion-slide>
+</ion-slides>
+</div>
+</ion-content>

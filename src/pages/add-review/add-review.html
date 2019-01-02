@@ -1,0 +1,35 @@
+<!--
+  Generated template for the AddReviewPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{page_title}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+	<form (ngSubmit)="AddReviewForm()"  name="myForm">
+      <ion-item>
+        <ion-input type="text" name="author" placeholder="Your Name" [(ngModel)]="author" required></ion-input>
+      </ion-item>
+      <ion-item>
+      	<ion-textarea name="text" placeholder="Enter a description" [(ngModel)]="text"></ion-textarea>
+      </ion-item>
+      <br><br>
+		      <ionic3-star-rating 
+		        activeIcon = "ios-star"
+		        defaultIcon = "ios-star-outline"
+		        activeColor =  "#EC6F3C"
+		        defaultColor ="#488aff" 
+		        readonly="false"
+		        [rating]="4">
+		    </ionic3-star-rating>
+      <br>
+      	<button ion-button type="submit" block >Submit Now</button>
+    </form>
+</ion-content>

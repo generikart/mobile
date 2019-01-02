@@ -1,0 +1,46 @@
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { RestProvider } from '../../providers/rest/rest';
+/**
+ * Generated class for the ProductbycategoryPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+
+@IonicPage()
+@Component({
+  selector: 'page-productbycategory',
+  templateUrl: 'productbycategory.html',
+   providers:  [ RestProvider ]
+})
+export class ProductbycategoryPage {
+	page_title ={};
+	cate_id = {};
+	categoryproducts={};
+  constructor(public navCtrl: NavController, public navParams: NavParams,public rest: RestProvider) {
+  	 this.cate_id = navParams.get('id');
+  	 this.page_title = navParams.get('name');
+  	  this.getData(rest)
+  	 
+  }
+
+  ionViewDidLoad() {
+  	
+   
+  }
+  
+  tapEvent(){
+ 	
+ }
+  
+   getData(rest) {
+ 	var apiUrl = "http://generikart.com/index.php?route=api/home/productbycategory";
+ 	const params = new FormData();
+    	params.append('cate_id', this.cate_id);
+    	rest.getDataFromJSONPOST(apiUrl,params).then(data => {
+	      this.categoryproducts = data;
+	      console.log(this.categoryproducts);
+	});
+  }
+}

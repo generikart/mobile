@@ -1,0 +1,41 @@
+<!--
+  Generated template for the UserRegisterPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Registration</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding class="main_class">
+	<form (ngSubmit)="RegistrationForm()"  name="myForm">
+      <ion-item>
+        <ion-input type="text" name="firstname" placeholder="First Name" [(ngModel)]="firstname" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input placeholder="Last Name" type="text" name="lastname" [(ngModel)]="lastname" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="text" placeholder="Email" name="email" [(ngModel)]="email" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input placeholder="Mobile" type="text" name="telephone" [(ngModel)]="telephone" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input type="password" placeholder="Password" name="password"  [(ngModel)]="password" required></ion-input>
+      </ion-item>
+      <!-- <ion-item>
+        <ion-label>Confirm Password</ion-label>
+        <ion-input type="text" name="conf-password" [(ngModel)]="conf-password" required> </ion-input>
+      </ion-item> -->
+      <br>
+      	<button ion-button type="submit" block >Register</button>
+    </form>
+</ion-content>

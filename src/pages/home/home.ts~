@@ -1,0 +1,64 @@
+import { Component } from '@angular/core';
+import { NavController } from 'ionic-angular';
+import { RestProvider } from '../../providers/rest/rest';
+import { PrescriptionorderPage } from '../prescriptionorder/prescriptionorder';
+import { ProductbycategoryPage } from '../productbycategory/productbycategory';
+import { ProductdetailPage } from '../productdetail/productdetail';
+import { LoadingController } from 'ionic-angular';
+
+@Component({
+  selector: 'page-home',
+  templateUrl: 'home.html',
+   providers:  [ RestProvider ]
+})
+export class HomePage {
+	data: any;
+	 categories: string[];
+//	 products: string[];
+	 categoryproducts:string[];
+	var loader =""; 
+  constructor(public navCtrl: NavController,public rest: RestProvider,public loadingCtrl: LoadingController) {
+    this.loader= this.loadingCtrl.create({
+      		content: "Please wait..."
+   	 });
+	this.loader.present();  
+  	this.getData(rest);
+  	
+  }
+  onInput(event){
+ 	alert(event);
+ }
+ 
+ onCancel(event){
+	alert(event);
+}
+
+openOrderwithPres(){
+	this.navCtrl.push(PrescriptionorderPage, {
+      id: "123",
+      name: "Carl"
+    });
+	//this.navCtrl.setRoot(PrescriptionorderPage);
+}
+
+openProductbycategory(cate_id,cate_name){
+	this.navCtrl.push(ProductbycategoryPage, {id: cate_id,name:cate_name});
+	//this.navCtrl.setRoot(PrescriptionorderPage);
+}
+
+openProductDetail(prod_id,prod_name){
+	this.navCtrl.push(ProductdetailPage, {id: prod_id,name:prod_name});
+}
+
+
+ getData(rest) {
+ 	var apiUrl = "http://generikart.com/index.php?route=api/home";
+  	rest.getDataFromJSONPOST(apiUrl,{}).then(data => {
+	      this.categories = data['category'];
+	      this.categoryproducts = data['category2'];
+	      console.log(this.data);
+	      this.loader.dismiss();
+	});
+  }
+  
+}

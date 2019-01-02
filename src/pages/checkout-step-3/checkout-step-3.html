@@ -1,0 +1,44 @@
+<!--
+  Generated template for the CheckoutStep_3Page page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>Confirm Order</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>      
+  <ion-card *ngFor="let product of products">
+		<ion-grid>
+      <ion-row>
+        <ion-col col-3><img src="{{product.image}}"></ion-col>
+        <ion-col col-9>
+            <ion-row>
+                  <ion-col col-12 class="product_name">{{product.name}}<p class="model_name">{{product.model}}</p></ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col col-8 class="pro_price"><i class="fa fa-rupee"></i>{{product.price}} x {{product.quantity}}</ion-col>
+              <ion-col col-4 class="pro_total"><i class="fa fa-rupee"></i>{{product.total}}</ion-col>
+            </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+</ion-card>
+</ion-content>
+<ion-footer no-shadow>
+  <ion-card >
+    <ion-grid>
+      <ion-row *ngFor="let cart of card_detail">
+        <ion-col col-8 style="text-align:left;">{{cart.text}} :</ion-col>
+        <ion-col col-4 style="text-align: end"><i class="fa fa-rupee"></i> {{cart.value}}</ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+
+<ion-toolbar position="bottom" class="add-cart-btn" id="add_to_cart_btn" (click) ="place_order()">
+    <span >Place Order</span>
+  </ion-toolbar>
+</ion-footer>

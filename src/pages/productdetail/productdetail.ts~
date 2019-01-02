@@ -1,0 +1,50 @@
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { RestProvider } from '../../providers/rest/rest';
+import { LoadingController } from 'ionic-angular';
+
+/**
+ * Generated class for the ProductdetailPage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+
+@IonicPage()
+@Component({
+  selector: 'page-productdetail',
+  templateUrl: 'productdetail.html',
+  providers:  [ RestProvider ]
+})
+export class ProductdetailPage {
+	prod_id ="";
+	page_title = {};
+	productDetail = {};
+	 const loader; 
+  constructor(public navCtrl: NavController, public navParams: NavParams,public rest: RestProvider,public loadingCtrl: LoadingController) {
+  	 this.prod_id = navParams.get('id');
+  	 this.page_title = navParams.get('name');
+  	  this.loader= this.loadingCtrl.create({
+      		content: "Please wait..."
+   	 });
+	this.loader.present();  
+  	  this.getData(rest)
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad ProductdetailPage');
+  }
+
+
+   getData(rest) {
+ 	var apiUrl = "http://generikart.com/index.php?route=api/home/productbyid";
+ 	const params = new FormData();
+    	params.append('product_id', this.prod_id);
+    	rest.getDataFromJSONPOST(apiUrl,params).then(data => {
+	    this.productDetail = data['product'];
+	    console.log(this.productDetail);
+	    this.loader.dismiss();
+	});
+  }
+  
+}

@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content >
+  <ion-searchbar
+  	placeholder="Search"
+  	showCancelButton="true"
+  	debounce="1000"
+	  [(ngModel)]="myInput"
+	  [showCancelButton]="shouldShowCancel"
+	  (ionInput)="onInput($event)"
+	  (ionCancel)="onCancel($event)">
+</ion-searchbar>
+<ion-card>
+<ion-slides pager class="header-banner"  autoplay="3000" loop="true" speed="1000">
+    	   <ion-slide >
+	   	<img  src="assets/imgs/banner1.jpg"/>
+	  </ion-slide>
+	  <ion-slide >
+	    <img  src="assets/imgs/banner2.jpg"/>
+	  </ion-slide>
+	  <ion-slide >
+	    <img  src="assets/imgs/banner1.jpg"/>
+	  </ion-slide>
+</ion-slides>
+</ion-card>
+<ion-card>
+  <button ion-item class="uplode_btn_card" (click)="openOrderwithPres()" >
+      <span ><i class="fa fa-arrow-circle-o-up" aria-hidden="true"></i>&nbsp; Upload prescription </span> 
+    </button>
+</ion-card>
+<h1 class="card_title">---- Top categories ----</h1>
+<ion-slides  class="category-slider" [slidesPerView]="3">
+    	   <ion-slide *ngFor="let category of categories">	   	
+	   	<ion-card (click)="openProductbycategory(category.category_id,category.name)">
+			  <img src="assets/imgs/placeholder.png">
+			  <ion-card-content class="category-card-content-md">
+			    <ion-card-title class="category_name">{{category.name}}</ion-card-title>
+			  </ion-card-content>
+		</ion-card>
+	  </ion-slide>
+</ion-slides>
+<div  *ngFor="let categoryproduct of categoryproducts">
+<h1 class="card_title">---- {{categoryproduct.category.name}} ----</h1>
+<ion-slides  class="category-slider" [slidesPerView]="2">
+    	   <ion-slide *ngFor="let product of categoryproduct.product">	   	
+	   	<ion-card (click)="openProductDetail(product.product_id,product.name)">
+			  <img src="{{product.image}}" style="max-height: 100px; min-height: 100px;">
+			  <ion-card-content class="category-card-content-md">
+			    <ion-card-title class="category_name">{{product.name}}</ion-card-title>
+			    <p><i class="fa fa-rupee"></i><b> {{product.price}}</b></p>
+			    <p> <ionic3-star-rating
+				        activeIcon = "ios-star"
+				        defaultIcon = "ios-star-outline"
+				        activeColor = "#7AC209"
+				        defaultColor = "#f4f4f4"
+				        readonly="false"
+				        [rating]="5">
+				    </ionic3-star-rating>
+    				</p>
+			  </ion-card-content>
+		</ion-card>
+	  </ion-slide>
+</ion-slides>
+</div>
+</ion-content>

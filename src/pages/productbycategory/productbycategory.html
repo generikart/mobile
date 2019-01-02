@@ -1,0 +1,47 @@
+<!--
+  Generated template for the ProductbycategoryPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{page_title}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+<ion-card  *ngFor="let product of categoryproducts.product">
+  <ion-item >
+    <ion-grid>
+	  <ion-row >
+	    <ion-col col-4 (tap)="openProductDetail(product.product_id,product.name)"><img class="product_image" src="{{product.image}}" ></ion-col>
+	    <ion-col col-8>
+	    		<ion-row >
+	    			<ion-col col-11 style="padding: 0px" (tap)="openProductDetail(product.product_id,product.name)"><span class="product_name">{{product.name}}</span></ion-col>
+	    			<ion-col col-1 (tap)="addWishList(product.product_id)">
+	    				<div *ngIf="product.iswishlist; then thenTemplateName else elseTemplateName"> </div>
+	    				<ng-template #thenTemplateName>
+    						 <ion-icon class="wish_list_enable" ios="ios-heart" md="md-heart"></ion-icon>
+						</ng-template>
+
+						<ng-template #elseTemplateName>
+						    <ion-icon class="wish_list_disable" ios="ios-heart-outline" md="md-heart-outline"></ion-icon>
+						</ng-template>
+	    				
+	    			</ion-col>
+	    		</ion-row> 
+	    		<p class="model_name" (tap)="openProductDetail(product.product_id,product.name)">Product Code: {{product.model}}</p>
+		    	<p><span class="rating_star">4<ion-icon ios="ios-star" md="md-star"></ion-icon></span>
+		    		<span class="rated_user">({{product.rated_user}})</span>
+		    	</p>
+			    <p (tap)="openProductDetail(product.product_id,product.name)"><span class="special_price"><i class="fa fa-rupee"></i> {{product.special_price}}</span>
+			    <span class="main-price"><i class="fa fa-rupee"></i> {{product.price}}</span></p>
+	    </ion-col>
+	  </ion-row>
+	</ion-grid>
+  </ion-item>
+</ion-card>
+</ion-content>
